@@ -1,0 +1,45 @@
+.measure-container {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 20px;
+  gap: 5px;
+}
+
+.bar-space-container {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  margin: 0;
+  gap: 2px; /* between bars and spaces */
+}
+
+.bar {
+  width: 100px;
+  height: 5px; 
+  background-color: #000000; /* color for the bar */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.space {
+  width: 100px;
+  height: 5px; 
+  background-color: #ffffff; /* color for the space */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.bar:hover {
+  background-color: #8f94fb; /* Color change on hover */
+}
+
+.space:hover {
+  background-color: #ced0f7; /* Color change on hover */
+}
