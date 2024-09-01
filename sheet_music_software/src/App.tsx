@@ -3,26 +3,46 @@ import Button from "./components/Button"
 import Bar from "./components/Bar"
 import Space from "./components/Space"
 import Measure from "./components/Measure"
-import MusicalNoteButton from "./components/MusicalNoteButton"
+import MusicalNotes from "./components/MusicalNotes"
+import {MouseEvent, useState, useEffect} from 'react'
 
 function App() {
+  // create global useState for the click and place operation
+  let [selectedNote, setSelectedNote] = useState<string | null>(null); // make useState to determine the clicked note.
+  
+  // should make a Function where if I click the WHITE area of HTML, it DESELECTS a note. let handleSelectBlank = ...
+  let handleSelectNote = (e: MouseEvent, noteType: string) => {
+    // console.log(e);
+    // console.log(e.target);
+    // console.log(e.currentTarget);
+    e.stopPropagation(); // prevent from deselecting the note.
+    console.log(noteType, e.target);
+    setSelectedNote(noteType);
+  }
+
+  let handleSelectBlank = (e: MouseEvent) => { // when blank HTML selected, deselect note.
+    setSelectedNote(null);
+  }
+
+  useEffect(() => { // when ESC key is pressed, deselect note. 
+    let handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedNote(null)
+      }
+    }
+  })
 
   let barTypes = ['1', '2', '3', '4', '5']
-  let handleSelectNote = (item: string) => {
-    console.log(item)
-  }
   let measureNumbers = ['1', '2', '3', '4', '5']
-  let measureNotes   = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15']
+  let measureNotes   = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21']
 
   return(
-    <div>
+    <div onClick={handleSelectBlank}>
       <div className="measure-container">
-        <MusicalNoteButton />
-        <Measure number={measureNumbers[0]} numNotes={measureNotes} />
-        <Measure number={measureNumbers[1]} numNotes={measureNotes} />
-        <Measure number={measureNumbers[2]} numNotes={measureNotes} />
-        <Measure number={measureNumbers[3]} numNotes={measureNotes} />
-        <Measure number={measureNumbers[4]} numNotes={measureNotes} />
+        <MusicalNotes selectedNote={null} onSelectNote={handleSelectNote}/>
+        {measureNumbers.map((number) => (
+          <Measure number={number} numNotes={measureNotes} selectedNote={selectedNote}/>
+        ))}
       </div>
     </div>
   )

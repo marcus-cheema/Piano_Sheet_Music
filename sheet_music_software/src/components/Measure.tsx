@@ -14,6 +14,7 @@ interface NoteArrays {
 interface MeasureProps {
     number: string
     numNotes: string[]
+    selectedNote: string | null
 }
 
 function returnNotes(notesArr: string[]): NoteArrays {
@@ -53,20 +54,22 @@ function Measure(props: MeasureProps) {
         <>
             <ul className="bar-space-container">
                 {noteArrays.topSpaceNumbers.map((item) => (
-                    <Space number={item} measure={props.number} onSelectNote={handleSelectNote}/>
+                    // space will take its own number, measure, function to handleSelectSpace, and the user's selected note (if they clicked button)
+                    // bar shares the same properties as space... 
+                    <Space number={item} measure={props.number} onSelectNote={handleSelectNote} selectedNote={props.selectedNote}/>
                 ))}
                 
                 {noteArrays.barNumbers.map((barNumber, index) => (
                     <>
                         <Bar number={barNumber} measure={props.number} onSelectNote={handleSelectNote} />
                         {noteArrays.midSpaceNumbers[index] !== undefined && (
-                            <Space number={noteArrays.midSpaceNumbers[index]} measure={props.number} onSelectNote={handleSelectNote} />
+                            <Space number={noteArrays.midSpaceNumbers[index]} measure={props.number} onSelectNote={handleSelectNote} selectedNote={props.selectedNote} />
                         )}
                     </>
                 ))}
 
                 {noteArrays.botSpaceNumbers.map((item) => (
-                    <Space number={item} measure={props.number} onSelectNote={handleSelectNote}/>
+                    <Space number={item} measure={props.number} onSelectNote={handleSelectNote} selectedNote={props.selectedNote}/>
                 ))}
                 
             </ul>
